@@ -34,6 +34,7 @@ def set_options(opt):
         opt.add_option('--disable-python',
                        help=("disable the pytalloc module"),
                        action="store_true", dest='disable_python', default=False)
+    opt.add_option("--enable-debug-callback", action="store_true", dest="TALLOC_DEBUG_CALLBACK", default=False)
 
 
 def configure(conf):
@@ -52,6 +53,9 @@ def configure(conf):
             conf.define('USING_SYSTEM_PYTALLOC_UTIL', 1)
 
     conf.env.TALLOC_COMPAT1 = Options.options.TALLOC_COMPAT1
+
+    if Options.options.TALLOC_DEBUG_CALLBACK:
+      conf.define("TALLOC_DEBUG_CALLBACK", 1)
 
     conf.CHECK_XSLTPROC_MANPAGES()
 
@@ -81,7 +85,7 @@ def build(bld):
         # should we also install the symlink to libtalloc1.so here?
         bld.SAMBA_LIBRARY('talloc-compat1-%s' % (VERSION),
                           'compat/talloc_compat1.c',
-                          public_deps='talloc',
+                          public_deps='talloc-debug',
                           soname='libtalloc.so.1',
                           pc_files=[],
                           public_headers=[],
@@ -89,7 +93,7 @@ def build(bld):
 
         bld.SAMBA_BINARY('talloc_testsuite',
                          'testsuite_main.c testsuite.c',
-                         deps='talloc',
+                         deps='talloc-debug',
                          install=False)
 
     else:
@@ -97,7 +101,7 @@ def build(bld):
 
     if not bld.CONFIG_SET('USING_SYSTEM_TALLOC'):
 
-        bld.SAMBA_LIBRARY('talloc',
+        bld.SAMBA_LIBRARY('talloc-debug',
                           'talloc.c',
                           deps='replace',
                           abi_directory='ABI',
@@ -113,7 +117,7 @@ def build(bld):
     if not bld.CONFIG_SET('USING_SYSTEM_PYTALLOC_UTIL') and not bld.env.disable_python:
         bld.SAMBA_LIBRARY('pytalloc-util',
             source='pytalloc_util.c',
-            public_deps='talloc',
+            public_deps='talloc-debug',
             pyembed=True,
             vnum=VERSION,
             hide_symbols=True,
@@ -125,7 +129,7 @@ def build(bld):
             )
         bld.SAMBA_PYTHON('pytalloc',
                          'pytalloc.c',
-                         deps='talloc pytalloc-util',
+                         deps='talloc-debug pytalloc-util',
                          enabled=True,
                          realname='talloc.so')
 

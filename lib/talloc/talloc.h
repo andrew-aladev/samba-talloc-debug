@@ -1834,6 +1834,18 @@ void talloc_set_abort_fn(void (*abort_fn)(const char *reason));
  */
 void talloc_set_log_fn(void (*log_fn)(const char *message));
 
+#ifdef TALLOC_DEBUG_CALLBACK
+/**
+ * @brief Set add, del callback functions.
+ *
+ * @param[in]  callback The callback function.
+ */
+void talloc_set_callback_fn(const void * context,
+    void (*add) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child),
+    void (*del) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child)
+);
+#endif
+
 /**
  * @brief Set stderr as the output for logs.
  *
