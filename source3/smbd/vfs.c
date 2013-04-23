@@ -428,14 +428,25 @@ ssize_t vfs_write_data(struct smb_request *req,
 	ssize_t ret;
 
 	if (req && req->unread_bytes) {
+		int sockfd = req->sconn->sock;
+		int old_flags;
 		SMB_ASSERT(req->unread_bytes == N);
 		/* VFS_RECVFILE must drain the socket
 		 * before returning. */
 		req->unread_bytes = 0;
-		return SMB_VFS_RECVFILE(req->sconn->sock,
+		/* Ensure the socket is blocking. */
+		old_flags = fcntl(sockfd, F_GETFL, 0);
+		if (set_blocking(sockfd, true) == -1) {
+			return (ssize_t)-1;
+		}
+		ret = SMB_VFS_RECVFILE(sockfd,
 					fsp,
 					(off_t)-1,
 					N);
+		if (fcntl(sockfd, F_SETFL, old_flags) == -1) {
+			return (ssize_t)-1;
+		}
+		return ret;
 	}
 
 	while (total < N) {
@@ -461,14 +472,25 @@ ssize_t vfs_pwrite_data(struct smb_request *req,
 	ssize_t ret;
 
 	if (req && req->unread_bytes) {
+		int sockfd = req->sconn->sock;
+		int old_flags;
 		SMB_ASSERT(req->unread_bytes == N);
 		/* VFS_RECVFILE must drain the socket
 		 * before returning. */
 		req->unread_bytes = 0;
-		return SMB_VFS_RECVFILE(req->sconn->sock,
+		/* Ensure the socket is blocking. */
+		old_flags = fcntl(sockfd, F_GETFL, 0);
+		if (set_blocking(sockfd, true) == -1) {
+			return (ssize_t)-1;
+		}
+		ret = SMB_VFS_RECVFILE(sockfd,
 					fsp,
 					offset,
 					N);
+		if (fcntl(sockfd, F_SETFL, old_flags) == -1) {
+			return (ssize_t)-1;
+		}
+		return ret;
 	}
 
 	while (total < N) {
@@ -843,16 +865,14 @@ char *vfs_GetWd(TALLOC_CTX *ctx, connection_struct *conn)
 	struct file_id key;
 	struct smb_filename *smb_fname_dot = NULL;
 	struct smb_filename *smb_fname_full = NULL;
-	NTSTATUS status;
 
 	if (!lp_getwd_cache()) {
 		goto nocache;
 	}
 
-	status = create_synthetic_smb_fname(ctx, ".", NULL, NULL,
-					    &smb_fname_dot);
-	if (!NT_STATUS_IS_OK(status)) {
-		errno = map_errno_from_nt_status(status);
+	smb_fname_dot = synthetic_smb_fname(ctx, ".", NULL, NULL);
+	if (smb_fname_dot == NULL) {
+		errno = ENOMEM;
 		goto out;
 	}
 
@@ -877,10 +897,10 @@ char *vfs_GetWd(TALLOC_CTX *ctx, connection_struct *conn)
 	SMB_ASSERT((cache_value.length > 0)
 		   && (cache_value.data[cache_value.length-1] == '\0'));
 
-	status = create_synthetic_smb_fname(ctx, (char *)cache_value.data,
-					    NULL, NULL, &smb_fname_full);
-	if (!NT_STATUS_IS_OK(status)) {
-		errno = map_errno_from_nt_status(status);
+	smb_fname_full = synthetic_smb_fname(ctx, (char *)cache_value.data,
+					     NULL, NULL);
+	if (smb_fname_full == NULL) {
+		errno = ENOMEM;
 		goto out;
 	}
 
@@ -1018,10 +1038,9 @@ NTSTATUS check_reduced_name_with_privilege(connection_struct *conn,
 		resolved_name));
 
 	/* Now check the stat value is the same. */
-	status = create_synthetic_smb_fname(talloc_tos(), ".",
-					NULL, NULL,
-					&smb_fname_cwd);
-	if (!NT_STATUS_IS_OK(status)) {
+	smb_fname_cwd = synthetic_smb_fname(talloc_tos(), ".", NULL, NULL);
+	if (smb_fname_cwd == NULL) {
+		status = NT_STATUS_NO_MEMORY;
 		goto err;
 	}
 
@@ -1257,14 +1276,12 @@ NTSTATUS check_reduced_name(connection_struct *conn, const char *fname)
 int vfs_stat_smb_fname(struct connection_struct *conn, const char *fname,
 		       SMB_STRUCT_STAT *psbuf)
 {
-	struct smb_filename *smb_fname = NULL;
-	NTSTATUS status;
+	struct smb_filename *smb_fname;
 	int ret;
 
-	status = create_synthetic_smb_fname_split(talloc_tos(), fname, NULL,
-						  &smb_fname);
-	if (!NT_STATUS_IS_OK(status)) {
-		errno = map_errno_from_nt_status(status);
+	smb_fname = synthetic_smb_fname_split(talloc_tos(), fname, NULL);
+	if (smb_fname == NULL) {
+		errno = ENOMEM;
 		return -1;
 	}
 
@@ -1289,14 +1306,12 @@ int vfs_stat_smb_fname(struct connection_struct *conn, const char *fname,
 int vfs_lstat_smb_fname(struct connection_struct *conn, const char *fname,
 			SMB_STRUCT_STAT *psbuf)
 {
-	struct smb_filename *smb_fname = NULL;
-	NTSTATUS status;
+	struct smb_filename *smb_fname;
 	int ret;
 
-	status = create_synthetic_smb_fname_split(talloc_tos(), fname, NULL,
-						  &smb_fname);
-	if (!NT_STATUS_IS_OK(status)) {
-		errno = map_errno_from_nt_status(status);
+	smb_fname = synthetic_smb_fname_split(talloc_tos(), fname, NULL);
+	if (smb_fname == NULL) {
+		errno = ENOMEM;
 		return -1;
 	}
 

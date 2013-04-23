@@ -387,13 +387,12 @@ void change_file_owner_to_parent(connection_struct *conn,
 					const char *inherit_from_dir,
 					files_struct *fsp)
 {
-	struct smb_filename *smb_fname_parent = NULL;
-	NTSTATUS status;
+	struct smb_filename *smb_fname_parent;
 	int ret;
 
-	status = create_synthetic_smb_fname(talloc_tos(), inherit_from_dir,
-					    NULL, NULL, &smb_fname_parent);
-	if (!NT_STATUS_IS_OK(status)) {
+	smb_fname_parent = synthetic_smb_fname(talloc_tos(), inherit_from_dir,
+					       NULL, NULL);
+	if (smb_fname_parent == NULL) {
 		return;
 	}
 
@@ -442,17 +441,17 @@ NTSTATUS change_dir_owner_to_parent(connection_struct *conn,
 				       const char *fname,
 				       SMB_STRUCT_STAT *psbuf)
 {
-	struct smb_filename *smb_fname_parent = NULL;
+	struct smb_filename *smb_fname_parent;
 	struct smb_filename *smb_fname_cwd = NULL;
 	char *saved_dir = NULL;
 	TALLOC_CTX *ctx = talloc_tos();
 	NTSTATUS status = NT_STATUS_OK;
 	int ret;
 
-	status = create_synthetic_smb_fname(ctx, inherit_from_dir, NULL, NULL,
-					    &smb_fname_parent);
-	if (!NT_STATUS_IS_OK(status)) {
-		return status;
+	smb_fname_parent = synthetic_smb_fname(ctx, inherit_from_dir,
+					       NULL, NULL);
+	if (smb_fname_parent == NULL) {
+		return NT_STATUS_NO_MEMORY;
 	}
 
 	ret = SMB_VFS_STAT(conn, smb_fname_parent);
@@ -490,10 +489,10 @@ NTSTATUS change_dir_owner_to_parent(connection_struct *conn,
 		goto chdir;
 	}
 
-	status = create_synthetic_smb_fname(ctx, ".", NULL, NULL,
-					    &smb_fname_cwd);
-	if (!NT_STATUS_IS_OK(status)) {
-		return status;
+	smb_fname_cwd = synthetic_smb_fname(ctx, ".", NULL, NULL);
+	if (smb_fname_cwd == NULL) {
+		status = NT_STATUS_NO_MEMORY;
+		goto chdir;
 	}
 
 	ret = SMB_VFS_STAT(conn, smb_fname_cwd);
@@ -3283,9 +3282,9 @@ void msg_file_was_renamed(struct messaging_context *msg,
 		stream_name = NULL;
 	}
 
-	status = create_synthetic_smb_fname(talloc_tos(), base_name,
-					    stream_name, NULL, &smb_fname);
-	if (!NT_STATUS_IS_OK(status)) {
+	smb_fname = synthetic_smb_fname(talloc_tos(), base_name,
+					stream_name, NULL);
+	if (smb_fname == NULL) {
 		return;
 	}
 
@@ -3372,17 +3371,17 @@ NTSTATUS open_streams_for_delete(connection_struct *conn,
 	}
 
 	for (i=0; i<num_streams; i++) {
-		struct smb_filename *smb_fname = NULL;
+		struct smb_filename *smb_fname;
 
 		if (strequal(stream_info[i].name, "::$DATA")) {
 			streams[i] = NULL;
 			continue;
 		}
 
-		status = create_synthetic_smb_fname(talloc_tos(), fname,
-						    stream_info[i].name,
-						    NULL, &smb_fname);
-		if (!NT_STATUS_IS_OK(status)) {
+		smb_fname = synthetic_smb_fname(
+			talloc_tos(), fname, stream_info[i].name, NULL);
+		if (smb_fname == NULL) {
+			status = NT_STATUS_NO_MEMORY;
 			goto fail;
 		}
 
@@ -3742,11 +3741,11 @@ static NTSTATUS create_file_unixpath(connection_struct *conn,
 		}
 
 		/* Create an smb_filename with stream_name == NULL. */
-		status = create_synthetic_smb_fname(talloc_tos(),
-						    smb_fname->base_name,
-						    NULL, NULL,
-						    &smb_fname_base);
-		if (!NT_STATUS_IS_OK(status)) {
+		smb_fname_base = synthetic_smb_fname(talloc_tos(),
+						     smb_fname->base_name,
+						     NULL, NULL);
+		if (smb_fname_base == NULL) {
+			status = NT_STATUS_NO_MEMORY;
 			goto fail;
 		}
 

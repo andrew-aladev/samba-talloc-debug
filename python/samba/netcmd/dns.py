@@ -424,7 +424,7 @@ class PTRRecord(dnsserver.DNS_RPC_RECORD):
         self.wType = dnsp.DNS_TYPE_PTR
         self.dwFlags = rank | node_flag
         self.dwSerial = serial
-        self.dwTtleSeconds = ttl
+        self.dwTtlSeconds = ttl
         self._ptr = ptr[:]
         ptr_name = dnsserver.DNS_RPC_NAME()
         ptr_name.str = self._ptr
@@ -1115,7 +1115,7 @@ class cmd_update_record(Command):
                                         name,
                                         add_rec_buf,
                                         del_rec_buf)
-        self.outf.write('Record updated succefully\n')
+        self.outf.write('Record updated successfully\n')
 
 
 class cmd_delete_record(Command):
@@ -1167,7 +1167,7 @@ class cmd_delete_record(Command):
                                         name,
                                         None,
                                         del_rec_buf)
-        self.outf.write('Record deleted succefully\n')
+        self.outf.write('Record deleted successfully\n')
 
 
 class cmd_dns(SuperCommand):

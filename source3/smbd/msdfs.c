@@ -1279,14 +1279,12 @@ bool create_msdfs_link(const struct junction_map *jucn)
 
 	if(SMB_VFS_SYMLINK(conn, msdfs_link, path) < 0) {
 		if (errno == EEXIST) {
-			struct smb_filename *smb_fname = NULL;
-			NTSTATUS status;
+			struct smb_filename *smb_fname;
 
-			status = create_synthetic_smb_fname(talloc_tos(), path,
-							    NULL, NULL,
-							    &smb_fname);
-			if (!NT_STATUS_IS_OK(status)) {
-				errno = map_errno_from_nt_status(status);
+			smb_fname = synthetic_smb_fname(talloc_tos(), path,
+							NULL, NULL);
+			if (smb_fname == NULL) {
+				errno = ENOMEM;
 				goto out;
 			}
 
@@ -1319,18 +1317,15 @@ bool remove_msdfs_link(const struct junction_map *jucn)
 	char *cwd;
 	connection_struct *conn;
 	bool ret = False;
-	struct smb_filename *smb_fname = NULL;
-	NTSTATUS status;
+	struct smb_filename *smb_fname;
 
 	if (!junction_to_local_path(jucn, &path, &conn, &cwd)) {
 		return false;
 	}
 
-	status = create_synthetic_smb_fname(talloc_tos(), path,
-					    NULL, NULL,
-					    &smb_fname);
-	if (!NT_STATUS_IS_OK(status)) {
-		errno = map_errno_from_nt_status(status);
+	smb_fname = synthetic_smb_fname(talloc_tos(), path, NULL, NULL);
+	if (smb_fname == NULL) {
+		errno = ENOMEM;
 		return false;
 	}
 

@@ -247,6 +247,7 @@ NTSTATUS smbd_smb2_request_pending_queue(struct smbd_smb2_request *req,
 					 uint32_t defer_time);
 
 struct smb_request *smbd_smb2_fake_smb_request(struct smbd_smb2_request *req);
+size_t smbd_smb2_unread_bytes(struct smbd_smb2_request *req);
 void remove_smb2_chained_fsp(files_struct *fsp);
 
 NTSTATUS smbd_smb2_request_verify_creditcharge(struct smbd_smb2_request *req,
@@ -462,6 +463,9 @@ NTSTATUS smbXsrv_open_global_traverse(
 	int (*fn)(struct smbXsrv_open_global0 *, void *),
 	void *private_data);
 
+NTSTATUS smbXsrv_open_cleanup(uint64_t persistent_id);
+
+
 struct smbd_smb2_request {
 	struct smbd_smb2_request *prev, *next;
 
@@ -544,6 +548,8 @@ struct smbd_smb2_request {
 #define SMBD_SMB2_OUT_DYN_IOV(req)   SMBD_SMB2_IDX_DYN_IOV(req,out,req->current_idx)
 #define SMBD_SMB2_OUT_DYN_PTR(req)   (uint8_t *)(SMBD_SMB2_OUT_DYN_IOV(req)->iov_base)
 #define SMBD_SMB2_OUT_DYN_LEN(req)   (SMBD_SMB2_OUT_DYN_IOV(req)->iov_len)
+
+#define SMBD_SMB2_SHORT_RECEIVEFILE_WRITE_LEN (SMB2_HDR_BODY + 0x30)
 
 	struct {
 		/*

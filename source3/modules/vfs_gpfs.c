@@ -1163,10 +1163,10 @@ static int gpfsacl_emu_chmod(const char *path, mode_t mode)
 
 	/* don't add complementary DENY ACEs here */
 	ZERO_STRUCT(fake_fsp);
-	status = create_synthetic_smb_fname(talloc_tos(), path, NULL, NULL,
-					    &fake_fsp.fsp_name);
-	if (!NT_STATUS_IS_OK(status)) {
-		errno = map_errno_from_nt_status(status);
+	fake_fsp.fsp_name = synthetic_smb_fname(
+		talloc_tos(), path, NULL, NULL);
+	if (fake_fsp.fsp_name == NULL) {
+		errno = ENOMEM;
 		return -1;
 	}
 	/* put the acl */
@@ -1183,10 +1183,12 @@ static int vfs_gpfs_chmod(vfs_handle_struct *handle, const char *path, mode_t mo
 {
 	struct smb_filename *smb_fname_cpath;
 	int rc;
-	NTSTATUS status;
 
-	status = create_synthetic_smb_fname(
-		talloc_tos(), path, NULL, NULL, &smb_fname_cpath);
+	smb_fname_cpath = synthetic_smb_fname(talloc_tos(), path, NULL, NULL);
+	if (smb_fname_cpath == NULL) {
+		errno = ENOMEM;
+		return -1;
+	}
 
 	if (SMB_VFS_NEXT_STAT(handle, smb_fname_cpath) != 0) {
 		return -1;

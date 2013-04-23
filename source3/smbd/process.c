@@ -2412,7 +2412,7 @@ static void smbd_server_connection_read_handler(
 				    &unread_bytes,
 				    &encrypted,
 				    &inbuf_len, &seqnum,
-				    false /* trusted channel */);
+				    !from_client /* trusted channel */);
 
 	if (from_client) {
 		smbd_unlock_socket(sconn);
@@ -3577,11 +3577,12 @@ void smbd_process(struct tevent_context *ev_ctx,
 				DEBUG(0, ("ctdbd_register_ips failed: %s\n",
 					  nt_errstr(status)));
 			}
-		} else
-		{
-			DEBUG(0,("Unable to get tcp info for "
-				 "CTDB_CONTROL_TCP_CLIENT: %s\n",
-				 strerror(errno)));
+		} else {
+			int level = (errno == ENOTCONN)?2:0;
+			DEBUG(level,("Unable to get tcp info for "
+				     "smbd_register_ips: %s\n",
+				     strerror(errno)));
+			exit_server_cleanly("client_get_tcp_info() failed.\n");
 		}
 	}
 

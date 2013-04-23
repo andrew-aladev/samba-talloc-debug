@@ -24,6 +24,7 @@
 #include "printing.h"
 #include "smbd/smbd.h"
 #include "smbd/globals.h"
+#include "smbd/scavenger.h"
 #include "fake_file.h"
 #include "transfer_file.h"
 #include "auth.h"
@@ -291,18 +292,18 @@ NTSTATUS delete_all_streams(connection_struct *conn, const char *fname)
 
 	for (i=0; i<num_streams; i++) {
 		int res;
-		struct smb_filename *smb_fname_stream = NULL;
+		struct smb_filename *smb_fname_stream;
 
 		if (strequal(stream_info[i].name, "::$DATA")) {
 			continue;
 		}
 
-		status = create_synthetic_smb_fname(talloc_tos(), fname,
-						    stream_info[i].name, NULL,
-						    &smb_fname_stream);
+		smb_fname_stream = synthetic_smb_fname(
+			talloc_tos(), fname, stream_info[i].name, NULL);
 
-		if (!NT_STATUS_IS_OK(status)) {
+		if (smb_fname_stream == NULL) {
 			DEBUG(0, ("talloc_aprintf failed\n"));
+			status = NT_STATUS_NO_MEMORY;
 			goto fail;
 		}
 
@@ -791,6 +792,7 @@ static NTSTATUS close_normal_file(struct smb_request *req, files_struct *fsp,
 					  "proceeding with normal close\n",
 					  fsp_str_dbg(fsp), nt_errstr(tmp)));
 			}
+			scavenger_schedule_disconnected(fsp);
 		} else {
 			DEBUG(1, ("Failed to disconnect durable handle for "
 				  "file %s: %s - proceeding with normal "
@@ -903,7 +905,6 @@ bool recursive_rmdir(TALLOC_CTX *ctx,
 		struct smb_filename *smb_dname_full = NULL;
 		char *fullname = NULL;
 		bool do_break = true;
-		NTSTATUS status;
 
 		if (ISDOT(dname) || ISDOTDOT(dname)) {
 			TALLOC_FREE(talloced);
@@ -926,10 +927,10 @@ bool recursive_rmdir(TALLOC_CTX *ctx,
 			goto err_break;
 		}
 
-		status = create_synthetic_smb_fname(talloc_tos(), fullname,
-						    NULL, NULL,
-						    &smb_dname_full);
-		if (!NT_STATUS_IS_OK(status)) {
+		smb_dname_full = synthetic_smb_fname(talloc_tos(), fullname,
+						     NULL, NULL);
+		if (smb_dname_full == NULL) {
+			errno = ENOMEM;
 			goto err_break;
 		}
 
@@ -1057,7 +1058,6 @@ static NTSTATUS rmdir_internals(TALLOC_CTX *ctx, files_struct *fsp)
 			struct smb_filename *smb_dname_full = NULL;
 			char *fullname = NULL;
 			bool do_break = true;
-			NTSTATUS status;
 
 			if (ISDOT(dname) || ISDOTDOT(dname)) {
 				TALLOC_FREE(talloced);
@@ -1079,12 +1079,10 @@ static NTSTATUS rmdir_internals(TALLOC_CTX *ctx, files_struct *fsp)
 				goto err_break;
 			}
 
-			status = create_synthetic_smb_fname(talloc_tos(),
-							    fullname, NULL,
-							    NULL,
-							    &smb_dname_full);
-			if (!NT_STATUS_IS_OK(status)) {
-				errno = map_errno_from_nt_status(status);
+			smb_dname_full = synthetic_smb_fname(
+				talloc_tos(), fullname, NULL, NULL);
+			if (smb_dname_full == NULL) {
+				errno = ENOMEM;
 				goto err_break;
 			}
 
