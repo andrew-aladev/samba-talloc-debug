@@ -239,13 +239,6 @@ static bool talloc_memlimit_check(struct talloc_memlimit *limit, size_t size);
 static bool talloc_memlimit_update(struct talloc_memlimit *limit,
 				   size_t old_size, size_t new_size);
 
-#ifdef TALLOC_DEBUG_CALLBACK
-struct talloc_events {
-    void (*add) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child);
-    void (*del) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child);
-};
-#endif
-
 typedef int (*talloc_destructor_t)(void *);
 
 struct talloc_chunk {
@@ -278,10 +271,6 @@ struct talloc_chunk {
 	 * from.
 	 */
 	void *pool;
-
-#ifdef TALLOC_DEBUG_CALLBACK
-    struct talloc_events * events;
-#endif
 };
 
 /* 16 byte alignment seems to keep everyone happy */
@@ -397,24 +386,28 @@ static inline struct talloc_chunk *talloc_chunk_from_ptr(const void *ptr)
 }
 
 #ifdef TALLOC_DEBUG_CALLBACK
-_PUBLIC_ void talloc_set_callback_fn(const TALLOC_CTX * context,
-    void (*add) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child),
-    void (*del) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child)
+static void (*add_callback) (const TALLOC_CTX * parent, const TALLOC_CTX * child);
+static void (*del_callback) (const TALLOC_CTX * parent, const TALLOC_CTX * child);
+
+_PUBLIC_ void talloc_set_callback_fn(
+    void (*add) (const TALLOC_CTX * parent, const TALLOC_CTX * child),
+    void (*del) (const TALLOC_CTX * parent, const TALLOC_CTX * child)
 ) {
-    struct talloc_chunk * tc = talloc_chunk_from_ptr (context);
-    if (!tc->events) {
-        tc->events = (struct talloc_events *) malloc (sizeof(struct talloc_events));
-    }
-    tc->events->add = add;
-    tc->events->del = del;
+    add_callback = add;
+    del_callback = del;
 }
 
 static inline
-void talloc_free_callback_fn(const TALLOC_CTX * ptr) {
-    struct talloc_chunk * tc = talloc_chunk_from_ptr(ptr);
-    if (tc->events) {
-        free (tc->events);
-        tc->events = NULL;
+void on_add(const TALLOC_CTX * ptr) {
+    if (add_callback) {
+        add_callback(talloc_parent(ptr), ptr);
+    }
+}
+
+static inline
+void on_del(const TALLOC_CTX * ptr) {
+    if (del_callback) {
+        del_callback(talloc_parent(ptr), ptr);
     }
 }
 #endif
@@ -591,41 +584,6 @@ static struct talloc_chunk *talloc_alloc_pool(struct talloc_chunk *parent,
 
 	return result;
 }
-
-#ifdef TALLOC_DEBUG_CALLBACK
-static inline
-void walk_add(const TALLOC_CTX * ptr, const TALLOC_CTX * target_ptr) {
-    if (!ptr) {
-        return;
-    }
-    struct talloc_chunk * tc = talloc_chunk_from_ptr(ptr);
-    if (tc->events) {
-        tc->events->add(ptr, talloc_parent(target_ptr), target_ptr);
-    }
-    walk_add(talloc_parent(ptr), target_ptr);
-}
-static inline
-void on_add(const TALLOC_CTX * ptr) {
-    walk_add(talloc_parent(ptr), ptr);
-}
-
-static inline
-void walk_del(const TALLOC_CTX * ptr, const TALLOC_CTX * target_ptr) {
-    if (!ptr) {
-        return;
-    }
-    struct talloc_chunk * tc = talloc_chunk_from_ptr(ptr);
-    if (tc->events) {
-        tc->events->del(ptr, talloc_parent(target_ptr), target_ptr);
-    }
-    walk_del(talloc_parent(ptr), target_ptr);
-}
-static inline
-void on_del(const TALLOC_CTX * ptr) {
-    walk_del(talloc_parent(ptr), ptr);
-}
-
-#endif
 
 /* 
    Allocate a bit of memory as a child of an existing pointer
@@ -929,7 +887,6 @@ static inline int _talloc_free_internal(void *ptr, const char *location)
     
 #ifdef TALLOC_DEBUG_CALLBACK
     on_del(ptr);
-    talloc_free_callback_fn(ptr);
 #endif
 
 	if (unlikely(tc->refs)) {

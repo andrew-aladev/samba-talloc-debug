@@ -1840,9 +1840,9 @@ void talloc_set_log_fn(void (*log_fn)(const char *message));
  *
  * @param[in]  callback The callback function.
  */
-void talloc_set_callback_fn(const TALLOC_CTX * context,
-    void (*add) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child),
-    void (*del) (const TALLOC_CTX * context, const TALLOC_CTX * parent, const TALLOC_CTX * child)
+void talloc_set_callback_fn(
+    void (*add) (const TALLOC_CTX * parent, const TALLOC_CTX * child),
+    void (*del) (const TALLOC_CTX * parent, const TALLOC_CTX * child)
 );
 #endif
 
