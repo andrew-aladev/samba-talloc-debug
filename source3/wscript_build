@@ -1641,6 +1641,15 @@ bld.SAMBA3_PYTHON('pylibsmb',
                   realname='samba/samba3/libsmb_samba_internal.so'
                   )
 
+bld.SAMBA3_BINARY('regedit',
+                  source="""utils/regedit.c utils/regedit_samba3.c
+                            utils/regedit_wrap.c utils/regedit_treeview.c
+                            utils/regedit_valuelist.c utils/regedit_dialog.c
+                            utils/regedit_hexedit.c""",
+                  deps='ncurses menu panel form registry param popt_samba3 smbregistry',
+                  enabled=bld.env.build_regedit,
+                  vars=locals())
+
 swat_dir = os.path.join(bld.curdir, '../swat')
 swat_files = recursive_dirlist(swat_dir, swat_dir, '*')
 swat_msg_dir = os.path.join(bld.curdir, 'po')

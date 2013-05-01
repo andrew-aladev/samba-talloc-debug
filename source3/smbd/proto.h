@@ -620,8 +620,6 @@ NTSTATUS change_dir_owner_to_parent(connection_struct *conn,
 				    const char *fname,
 				    SMB_STRUCT_STAT *psbuf);
 bool is_stat_open(uint32 access_mask);
-void remove_deferred_open_entry(struct file_id id, uint64_t mid,
-				struct server_id pid);
 bool is_deferred_open_async(const void *ptr);
 NTSTATUS open_file_fchmod(connection_struct *conn,
 			  struct smb_filename *smb_fname,
@@ -667,7 +665,6 @@ bool remove_oplock(files_struct *fsp);
 bool downgrade_oplock(files_struct *fsp);
 bool should_notify_deferred_opens(struct smbd_server_connection *sconn);
 void break_level2_to_none_async(files_struct *fsp);
-void reply_to_oplock_break_requests(files_struct *fsp);
 void contend_level2_oplocks_begin(files_struct *fsp,
 				  enum level2_contention_type type);
 void contend_level2_oplocks_end(files_struct *fsp,

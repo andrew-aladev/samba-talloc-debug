@@ -47,6 +47,8 @@ def set_options(opt):
 
     opt.SAMBA3_ADD_OPTION('cluster-support', default=None)
 
+    opt.SAMBA3_ADD_OPTION('regedit', default=True)
+
     opt.add_option('--with-ctdb-dir',
                    help=("Directory under which ctdb is installed"),
                    action="store", dest='ctdb_dir', default=None)
@@ -1710,6 +1712,9 @@ main() {
 
     if conf.CHECK_HEADERS('cephfs/libcephfs.h', False, False, 'cephfs') and conf.CHECK_LIB('cephfs'):
         conf.DEFINE('HAVE_CEPH', '1')
+
+    if Options.options.with_regedit:
+        conf.PROCESS_SEPARATE_RULE('system_ncurses')
 
     default_static_modules.extend(TO_LIST('''pdb_smbpasswd pdb_tdbsam pdb_wbc_sam
                                       auth_sam auth_unix auth_winbind auth_wbc
