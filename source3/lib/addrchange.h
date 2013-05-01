@@ -21,7 +21,7 @@
 
 #include "replace.h"
 #include "system/network.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 #include "libcli/util/ntstatus.h"
 

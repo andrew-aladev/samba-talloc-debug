@@ -25,7 +25,7 @@
 
 #ifdef HAVE_LDAP
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 
 /**

@@ -7,7 +7,7 @@
 #define UTILS_LIST_H
 
 #include <stdbool.h>
-#include <talloc.h>
+#include <talloc_debug.h>
 
 typedef struct list_node {
     void * data;

@@ -19,7 +19,7 @@
 
 #include <Python.h>
 #include <tevent.h>
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 #include "includes.h"
 #include "param/param.h"
 #include "param/pyparam.h"

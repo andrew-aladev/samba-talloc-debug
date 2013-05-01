@@ -22,7 +22,7 @@
 #include "includes.h"
 #include "libcli/util/pyerrors.h"
 #include "lib/registry/registry.h"
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 #include "lib/events/events.h"
 #include "auth/credentials/pycredentials.h"
 #include "param/pyparam.h"

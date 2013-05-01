@@ -24,7 +24,7 @@
 struct registry_context;
 struct loadparm_context;
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include "libcli/util/werror.h"
 #include "librpc/gen_ndr/security.h"
 #include "libcli/util/ntstatus.h"

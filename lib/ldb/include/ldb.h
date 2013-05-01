@@ -47,7 +47,7 @@
 /*! \endcond */
 
 #include <stdbool.h>
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 #include <ldb_version.h>
 #include <ldb_errors.h>

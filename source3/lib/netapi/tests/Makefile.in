@@ -1,6 +1,6 @@
 KRB5LIBS=@KRB5_LIBS@
 LDAP_LIBS=@LDAP_LIBS@
-LIBS=@LIBS@ -lnetapi -ltdb -ltalloc
+LIBS=@LIBS@ -lnetapi -ltdb -ltalloc_debug
 DEVELOPER_CFLAGS=@DEVELOPER_CFLAGS@
 CCFLAGS=-I../ -L../../../bin @CFLAGS@ $(GTK_FLAGS)
 CC=@CC@

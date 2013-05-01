@@ -19,8 +19,8 @@
 
 #include <Python.h>
 #include "replace.h"
-#include <talloc.h>
-#include "pytalloc.h"
+#include <talloc_debug.h>
+#include "pytalloc_debug.h"
 #include <assert.h>
 
 _PUBLIC_ PyTypeObject *pytalloc_GetObjectType(void)

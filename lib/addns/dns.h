@@ -42,7 +42,7 @@
 #include <time.h>
 #include <netdb.h>
 
-#include <talloc.h>
+#include <talloc_debug.h>
 
 #include "dnserr.h"
 

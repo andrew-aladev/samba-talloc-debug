@@ -31,7 +31,7 @@
 */
 
 #include "replace.h"
-#include "talloc.h"
+#include "talloc_debug.h"
 
 #ifdef TALLOC_BUILD_VERSION_MAJOR
 #if (TALLOC_VERSION_MAJOR != TALLOC_BUILD_VERSION_MAJOR)

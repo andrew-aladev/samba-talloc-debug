@@ -24,7 +24,7 @@
 #ifndef _WBC_ASYNC_H_
 #define _WBC_ASYNC_H_
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 #include "nsswitch/libwbclient/wbclient.h"
 #include "nsswitch/wb_reqtrans.h"

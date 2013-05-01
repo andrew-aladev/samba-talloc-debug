@@ -21,7 +21,7 @@
 #ifndef __DBWRAP_NTDB_H__
 #define __DBWRAP_NTDB_H__
 
-#include <talloc.h>
+#include <talloc_debug.h>
 
 struct db_context;
 

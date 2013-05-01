@@ -22,7 +22,7 @@
 #ifndef _LDB_WRAP_H_
 #define _LDB_WRAP_H_
 
-#include <talloc.h>
+#include <talloc_debug.h>
 
 struct auth_session_info;
 struct ldb_message;

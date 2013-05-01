@@ -3,9 +3,9 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: pytalloc-util
+Name: pytalloc-debug-util
 Description: Utility functions for using talloc objects with Python
 Version: @TALLOC_VERSION@
-Libs: -L${libdir} -lpytalloc-util
+Libs: -L${libdir} -lpytalloc-debug-util
 Cflags: @LIB_RPATH@ -I${includedir}
 URL: http://talloc.samba.org/

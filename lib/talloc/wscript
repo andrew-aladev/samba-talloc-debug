@@ -48,7 +48,7 @@ def configure(conf):
         if conf.CHECK_BUNDLED_SYSTEM_PKG('talloc-debug', minversion=VERSION,
                                      implied_deps='replace'):
             conf.define('USING_SYSTEM_TALLOC', 1)
-        if conf.CHECK_BUNDLED_SYSTEM_PKG('pytalloc-util', minversion=VERSION,
+        if conf.CHECK_BUNDLED_SYSTEM_PKG('pytalloc-debug-util', minversion=VERSION,
                                      implied_deps='talloc-debug replace'):
             conf.define('USING_SYSTEM_PYTALLOC_UTIL', 1)
 
@@ -66,7 +66,7 @@ def configure(conf):
         conf.check_python_version((2,4,2))
         conf.SAMBA_CHECK_PYTHON_HEADERS(mandatory=False)
         if not conf.env.HAVE_PYTHON_H:
-            Logs.warn('Disabling pytalloc-util as python devel libs not found')
+            Logs.warn('Disabling pytalloc-debug-util as python devel libs not found')
             conf.env.disable_python = True
 
     conf.SAMBA_CONFIG_H()
@@ -102,21 +102,21 @@ def build(bld):
     if not bld.CONFIG_SET('USING_SYSTEM_TALLOC'):
 
         bld.SAMBA_LIBRARY('talloc-debug',
-                          'talloc.c',
+                          'talloc_debug.c',
                           deps='replace',
                           abi_directory='ABI',
                           abi_match='talloc* _talloc*',
                           hide_symbols=True,
                           vnum=VERSION,
-                          public_headers='talloc.h',
-                          pc_files='talloc.pc',
+                          public_headers='talloc_debug.h',
+                          pc_files='talloc_debug.pc',
                           public_headers_install=not private_library,
                           private_library=private_library,
-                          manpages='man/talloc.3')
+                          manpages='man/talloc_debug.3')
 
     if not bld.CONFIG_SET('USING_SYSTEM_PYTALLOC_UTIL') and not bld.env.disable_python:
-        bld.SAMBA_LIBRARY('pytalloc-util',
-            source='pytalloc_util.c',
+        bld.SAMBA_LIBRARY('pytalloc-debug-util',
+            source='pytalloc_debug_util.c',
             public_deps='talloc-debug',
             pyembed=True,
             vnum=VERSION,
@@ -124,12 +124,12 @@ def build(bld):
             abi_directory='ABI',
             abi_match='pytalloc_*',
             private_library=private_library,
-            public_headers='pytalloc.h',
-            pc_files='pytalloc-util.pc'
+            public_headers='pytalloc_debug.h',
+            pc_files='pytalloc_debug_util.pc'
             )
-        bld.SAMBA_PYTHON('pytalloc',
-                         'pytalloc.c',
-                         deps='talloc-debug pytalloc-util',
+        bld.SAMBA_PYTHON('pytalloc-debug',
+                         'pytalloc_debug.c',
+                         deps='talloc-debug pytalloc-debug-util',
                          enabled=True,
                          realname='talloc-debug.so')
 

@@ -24,7 +24,7 @@
 #ifndef _WB_REQTRANS_H_
 #define _WB_REQTRANS_H_
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 #include "nsswitch/winbind_struct_protocol.h"
 

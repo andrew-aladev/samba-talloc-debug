@@ -373,7 +373,7 @@ typedef char fstring[FSTRING_LEN];
 #include "../lib/util/tsort.h"
 #include "../lib/util/dlinklist.h"
 
-#include <talloc.h>
+#include <talloc_debug.h>
 
 #include "event.h"
 

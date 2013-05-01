@@ -20,7 +20,7 @@
 */
 
 #include "includes.h"
-#include "talloc.h"
+#include "talloc_debug.h"
 #include "tevent.h"
 #include "system/filesys.h"
 #include "lib/param/param.h"

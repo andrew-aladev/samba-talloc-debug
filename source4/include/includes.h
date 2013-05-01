@@ -51,7 +51,7 @@
 #endif
 
 /* Lists, trees, caching, database... */
-#include <talloc.h>
+#include <talloc_debug.h>
 #ifndef _PRINTF_ATTRIBUTE
 #define _PRINTF_ATTRIBUTE(a1, a2) PRINTF_ATTRIBUTE(a1, a2)
 #endif

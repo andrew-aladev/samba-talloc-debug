@@ -20,7 +20,7 @@
 */
 
 #include "includes.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 #include "lib/messaging/irpc.h"
 #include "smbd/service_task.h"
 #include "smbd/service.h"

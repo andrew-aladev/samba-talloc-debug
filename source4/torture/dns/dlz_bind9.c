@@ -20,7 +20,7 @@
 #include "includes.h"
 #include "torture/smbtorture.h"
 #include "dlz_minimal.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <ldb.h>
 #include "lib/param/param.h"
 #include "dsdb/samdb/samdb.h"

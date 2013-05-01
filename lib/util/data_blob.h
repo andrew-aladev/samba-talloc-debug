@@ -30,7 +30,7 @@
 #define _PUBLIC_
 #endif
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <stdint.h>
 
 /* used to hold an arbitrary blob of data */

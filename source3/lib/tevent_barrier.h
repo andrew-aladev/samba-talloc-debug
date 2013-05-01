@@ -20,7 +20,7 @@
 #ifndef _TEVENT_BARRIER_H
 #define _TEVENT_BARRIER_H
 
-#include "talloc.h"
+#include "talloc_debug.h"
 #include "tevent.h"
 
 struct tevent_barrier;

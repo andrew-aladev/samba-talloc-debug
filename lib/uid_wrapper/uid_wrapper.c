@@ -21,7 +21,7 @@
 #define UID_WRAPPER_NOT_REPLACE
 #include "replace.h"
 #include "system/passwd.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 #include "../lib/util/setid.h"
 
 #else /* _SAMBA_BUILD_ */

@@ -774,7 +774,7 @@ bld.SAMBA3_SUBSYSTEM('param',
 bld.SAMBA3_PYTHON('pys3param',
                   source='param/pyparam.c',
                   deps='param',
-                  public_deps='samba-hostconfig pytalloc-util talloc-debug',
+                  public_deps='samba-hostconfig pytalloc-debug-util talloc-debug',
                   realname='samba/samba3/param.so')
     
 bld.SAMBA3_SUBSYSTEM('param_service',

@@ -20,7 +20,7 @@
 */
 
 #include "includes.h"
-#include "talloc.h"
+#include "talloc_debug.h"
 #include "param/param.h"
 #include "lib/events/events.h"
 #include "dsdb/samdb/samdb.h"

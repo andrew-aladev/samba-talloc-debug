@@ -34,7 +34,7 @@
 #include "reg_format.h"
 
 #include <stdio.h>
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <stdbool.h>
 #include <string.h>
 #include <regex.h>

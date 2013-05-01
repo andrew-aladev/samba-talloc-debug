@@ -24,7 +24,7 @@
 #ifndef __ASYNC_SOCK_H__
 #define __ASYNC_SOCK_H__
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 #include "system/network.h"
 

@@ -18,7 +18,7 @@
 */
 
 #include <Python.h>
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 #include "includes.h"
 #include "lib/util/talloc_stack.h"
 #include "libcli/security/security.h"

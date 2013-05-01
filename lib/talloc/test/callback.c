@@ -1,7 +1,7 @@
 #include "stdint.h"
 
 #define TALLOC_DEBUG_CALLBACK
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <list.h>
 
 typedef struct callback {

@@ -22,7 +22,7 @@
 #ifndef _____LIB_UTIL_UTIL_NTDB_H__
 #define _____LIB_UTIL_UTIL_NTDB_H__
 #include <ntdb.h>
-#include <talloc.h>
+#include <talloc_debug.h>
 #include "libcli/util/ntstatus.h"
 
 struct loadparm_context;

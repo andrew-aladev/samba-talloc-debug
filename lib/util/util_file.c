@@ -22,7 +22,7 @@
 #include "replace.h"
 #include "system/shmem.h"
 #include "system/filesys.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 #include "lib/util/samba_util.h"
 #include "lib/util/debug.h"
 

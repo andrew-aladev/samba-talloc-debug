@@ -22,7 +22,7 @@ PICFLAG=@PICFLAG@
 LDFLAGS= $(SAMBA_LIBPATH) @PIE_LDFLAGS@ @LDFLAGS@
 
 EXTERNAL_LIBS = @LIBS@ @LDAP_LIBS@ @KRB5_LIBS@ @NSCD_LIBS@
-LIBSMBCLIENT_LIBS = -lwbclient -lsmbclient -ltalloc -ltdb -ldl -lresolv
+LIBSMBCLIENT_LIBS = -lwbclient -lsmbclient -ltalloc_debug -ltdb -ldl -lresolv
 CMDLINE_LIBS = @POPTLIBS@
 LIBS = $(EXTERNAL_LIBS) $(LIBSMBCLIENT_LIBS)
 

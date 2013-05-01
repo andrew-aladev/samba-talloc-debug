@@ -22,7 +22,7 @@
 
 #include "tdb_compat.h"
 
-#include <talloc.h> /* for tdb_wrap_open() */
+#include <talloc_debug.h> /* for tdb_wrap_open() */
 #include "../libcli/util/ntstatus.h" /* for map_nt_error_from_tdb() */
 #include "../../lib/util/util_tdb.h"
 

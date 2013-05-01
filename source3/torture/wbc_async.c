@@ -24,7 +24,7 @@
 #include "replace.h"
 #include "system/filesys.h"
 #include "system/network.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 #include "lib/async_req/async_sock.h"
 #include "nsswitch/winbind_struct_protocol.h"

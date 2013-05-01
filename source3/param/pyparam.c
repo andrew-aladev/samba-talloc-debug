@@ -21,7 +21,7 @@
 #include "includes.h"
 #include "param/param.h"
 #include "param/loadparm.h"
-#include "lib/talloc/pytalloc.h"
+#include "lib/talloc/pytalloc_debug.h"
 
 static PyTypeObject *loadparm_Type = NULL;
 

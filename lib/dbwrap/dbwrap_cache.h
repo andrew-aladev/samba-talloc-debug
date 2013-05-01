@@ -20,7 +20,7 @@
 #ifndef __DBWRAP_CACHE_H__
 #define __DBWRAP_CACHE_H__
 
-#include <talloc.h>
+#include <talloc_debug.h>
 
 #include "dbwrap/dbwrap_private.h"
 

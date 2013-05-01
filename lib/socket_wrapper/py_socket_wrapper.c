@@ -40,7 +40,7 @@
 */
 
 #include <Python.h>
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 #include "replace/replace.h"
 #include "system/network.h"
 #include "socket_wrapper.h"

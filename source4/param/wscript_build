@@ -2,7 +2,7 @@
 
 bld.SAMBA_SUBSYSTEM('PROVISION',
 	source='provision.c pyparam.c',
-	deps='LIBPYTHON pyparam_util ldb pytalloc-util pyldb-util',
+	deps='LIBPYTHON pyparam_util ldb pytalloc-debug-util pyldb-util',
 	pyext=True,
 	)
 
@@ -38,7 +38,7 @@ bld.SAMBA_SUBSYSTEM('SECRETS',
 
 bld.SAMBA_PYTHON('pyparam',
 	source='pyparam.c',
-	deps='samba-hostconfig pytalloc-util',
+	deps='samba-hostconfig pytalloc-debug-util',
 	realname='samba/param.so'
 	)
 

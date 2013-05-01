@@ -21,7 +21,7 @@
 #include "includes.h"
 #include "libcli/util/pyerrors.h"
 #include "libcli/security/security.h"
-#include "pytalloc.h"
+#include "pytalloc_debug.h"
 
 void initsecurity(void);
 

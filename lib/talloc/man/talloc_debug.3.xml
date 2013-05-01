@@ -2,14 +2,14 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <refentry>
   <refmeta>
-    <refentrytitle>talloc</refentrytitle>
+    <refentrytitle>talloc_debug</refentrytitle>
     <manvolnum>3</manvolnum>
     <refmiscinfo class="source">Samba</refmiscinfo>
     <refmiscinfo class="manual">System Administration tools</refmiscinfo>
     <refmiscinfo class="version">4.0</refmiscinfo>
   </refmeta>
   <refnamediv>
-    <refname>talloc</refname>
+    <refname>talloc_debug</refname>
 <refpurpose>hierarchical reference counted memory pool system with destructors</refpurpose>
   </refnamediv>
   <refsynopsisdiv>

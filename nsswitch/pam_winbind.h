@@ -53,7 +53,7 @@
 #include "../lib/replace/replace.h"
 #include "system/syslog.h"
 #include "system/time.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 #include "libwbclient/wbclient.h"
 
 #define MODULE_NAME "pam_winbind"

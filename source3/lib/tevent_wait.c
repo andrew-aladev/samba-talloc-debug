@@ -18,7 +18,7 @@
 */
 
 #include "lib/replace/replace.h"
-#include "talloc.h"
+#include "talloc_debug.h"
 #include "tevent.h"
 #include "tevent_wait.h"
 #include "lib/util/tevent_unix.h"

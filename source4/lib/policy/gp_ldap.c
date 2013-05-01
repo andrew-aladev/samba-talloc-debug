@@ -28,7 +28,7 @@
 #include "../librpc/gen_ndr/ndr_security.h"
 #include "../libcli/security/security.h"
 #include "libcli/ldap/ldap_ndr.h"
-#include "../lib/talloc/talloc.h"
+#include "../lib/talloc/talloc_debug.h"
 #include "lib/policy/policy.h"
 
 struct gpo_stringmap {

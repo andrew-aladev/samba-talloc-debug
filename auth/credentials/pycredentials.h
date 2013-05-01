@@ -20,7 +20,7 @@
 #define _PYCREDENTIALS_H_
 
 #include "auth/credentials/credentials.h"
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 
 extern PyTypeObject PyCredentials;
 extern PyTypeObject PyCredentialCacheContainer;

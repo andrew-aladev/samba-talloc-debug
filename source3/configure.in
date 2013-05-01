@@ -1834,7 +1834,7 @@ fi
 #
 # Example:
 #   --with-static-libs=libtalloc makes use of libtalloc.a instead
-#   of linking the dynamic variant with -ltalloc.
+#   of linking the dynamic variant with -ltalloc_debug.
 #
 # NOTE: This option only affects libraries that we do not only build
 # but that samba also links against as libraries (as opposed to linking
@@ -5034,7 +5034,7 @@ AC_CHECK_HEADERS(ctdb.h ctdb_private.h ctdb_protocol.h ,,,[
 #include "system/wait.h"
 #include "system/network.h"
 #define private #error __USED_RESERVED_WORD_private__
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tdb.h>
 #include <ctdb.h>
 ])
@@ -5061,7 +5061,7 @@ if test "x$have_cluster_support" = "xyes" ; then
 	#include "replace.h"
 	#include "system/wait.h"
 	#include "system/network.h"
-	#include <talloc.h>
+	#include <talloc_debug.h>
 	#include <tdb.h>
 	#include <ctdb.h>
 	#include <ctdb_private.h>
@@ -5079,7 +5079,7 @@ if test "x$have_cluster_support" = "xyes" ; then
 	#include "replace.h"
 	#include "system/wait.h"
 	#include "system/network.h"
-	#include <talloc.h>
+	#include <talloc_debug.h>
 	#include <tdb.h>
 	#include <ctdb.h>
 	#include <ctdb_private.h>
@@ -5102,7 +5102,7 @@ if test "x$have_cluster_support" = "xyes" ; then
 	#include "replace.h"
 	#include "system/wait.h"
 	#include "system/network.h"
-	#include <talloc.h>
+	#include <talloc_debug.h>
 	#include <tdb.h>
 	#include <ctdb.h>
 	#include <ctdb_private.h>
@@ -5131,7 +5131,7 @@ if test "x$have_cluster_support" = "xyes" -a "x$want_ctdb_readonly" = "xyes" ; t
 	#include "replace.h"
 	#include "system/wait.h"
 	#include "system/network.h"
-	#include <talloc.h>
+	#include <talloc_debug.h>
 	#include <tdb.h>
 	#include <ctdb.h>
 	])
@@ -5157,7 +5157,7 @@ if test "x$have_cluster_support" = "xyes" ; then
 	#include "replace.h"
 	#include "system/wait.h"
 	#include "system/network.h"
-	#include <talloc.h>
+	#include <talloc_debug.h>
 	#include <tdb.h>
 	#include <ctdb.h>
 	#include <ctdb_private.h>
@@ -5176,7 +5176,7 @@ if test "x$have_cluster_support" = "xyes" ; then
 	#include "replace.h"
 	#include "system/wait.h"
 	#include "system/network.h"
-	#include <talloc.h>
+	#include <talloc_debug.h>
 	#include <tdb.h>
 	#include <ctdb.h>
 	#include <ctdb_private.h>
@@ -5193,7 +5193,7 @@ if test "x$have_cluster_support" = "xyes" ; then
 	#include "replace.h"
 	#include "system/wait.h"
 	#include "system/network.h"
-	#include <talloc.h>
+	#include <talloc_debug.h>
 	#include <tdb.h>
 	#include <ctdb.h>
 	#include <ctdb_private.h>

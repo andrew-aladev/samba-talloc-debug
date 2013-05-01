@@ -23,7 +23,7 @@
 */
 
 #include "replace.h"
-#include "talloc.h"
+#include "talloc_debug.h"
 #include "tevent.h"
 #include "tevent_internal.h"
 #include "tevent_util.h"

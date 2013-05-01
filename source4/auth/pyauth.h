@@ -20,7 +20,7 @@
 #ifndef _PYAUTH_H_
 #define _PYAUTH_H_
 
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 #include "auth/session.h"
 
 #define PyAuthSession_AsSession(obj) pytalloc_get_type(obj, struct auth_session_info)

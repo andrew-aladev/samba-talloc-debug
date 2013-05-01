@@ -20,7 +20,7 @@
 #ifndef _TEVENT_WAIT_H
 #define _TEVENT_WAIT_H
 
-#include "talloc.h"
+#include "talloc_debug.h"
 #include "tevent.h"
 
 /*

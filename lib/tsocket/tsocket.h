@@ -24,7 +24,7 @@
 #ifndef _TSOCKET_H
 #define _TSOCKET_H
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 
 struct tsocket_address;

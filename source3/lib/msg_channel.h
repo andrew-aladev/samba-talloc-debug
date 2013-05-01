@@ -20,7 +20,7 @@
 #ifndef _MSG_STREAM_H_
 #define _MSG_STREAM_H_
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 #include "messages.h"
 #include "librpc/gen_ndr/messaging.h"

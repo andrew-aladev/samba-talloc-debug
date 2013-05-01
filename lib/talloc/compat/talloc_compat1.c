@@ -27,7 +27,7 @@
  */
 
 #include "replace.h"
-#include "talloc.h"
+#include "talloc_debug.h"
 
 void *_talloc_reference(const void *context, const void *ptr);
 void *_talloc_reference(const void *context, const void *ptr) {

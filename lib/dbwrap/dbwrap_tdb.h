@@ -20,7 +20,7 @@
 #ifndef __DBWRAP_TDB_H__
 #define __DBWRAP_TDB_H__
 
-#include <talloc.h>
+#include <talloc_debug.h>
 
 struct db_context;
 

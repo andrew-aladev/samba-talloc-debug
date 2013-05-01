@@ -25,7 +25,7 @@
 
 #include "replace.h"
 #include "system/time.h"
-#include <talloc.h>
+#include <talloc_debug.h>
 
 #include "talloc_testsuite.h"
 

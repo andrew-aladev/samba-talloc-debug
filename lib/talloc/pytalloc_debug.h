@@ -21,7 +21,7 @@
 #define _PYTALLOC_H_
 
 #include <Python.h>
-#include <talloc.h>
+#include <talloc_debug.h>
 
 typedef struct {
 	PyObject_HEAD

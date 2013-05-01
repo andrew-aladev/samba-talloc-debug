@@ -22,7 +22,7 @@
 #include "param/param.h"
 #include "param/pyparam.h"
 #include "param/loadparm.h"
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 
 #define PyLoadparmContext_AsLoadparmContext(obj) pytalloc_get_type(obj, struct loadparm_context)
 

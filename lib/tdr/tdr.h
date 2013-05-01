@@ -20,7 +20,7 @@
 #ifndef __TDR_H__
 #define __TDR_H__
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include "../lib/util/charset/charset.h"
 
 #define TDR_BIG_ENDIAN			0x01

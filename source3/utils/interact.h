@@ -22,7 +22,7 @@
 
 #ifndef __INTERACT_H
 #define __INTERACT_H
-#include <talloc.h>
+#include <talloc_debug.h>
 
 char* interact_edit(TALLOC_CTX* mem_ctx, const char* str);
 int interact_prompt(const char* msg, const char* accept, char def);

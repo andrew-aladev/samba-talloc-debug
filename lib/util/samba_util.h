@@ -25,7 +25,7 @@
 #include "lib/util/attr.h"
 
 /* for TALLOC_CTX */
-#include <talloc.h>
+#include <talloc_debug.h>
 
 /**
  * @file

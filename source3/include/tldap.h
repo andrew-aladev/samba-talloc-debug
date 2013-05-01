@@ -20,7 +20,7 @@
 #ifndef __TLDAP_H__
 #define __TLDAP_H__
 
-#include <talloc.h>
+#include <talloc_debug.h>
 #include <tevent.h>
 
 struct tldap_context;

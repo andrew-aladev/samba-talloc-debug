@@ -28,7 +28,7 @@
 #include <Python.h>
 #include "libcli/util/pyerrors.h"
 #include "librpc/rpc/pyrpc_util.h"
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 #include "system/filesys.h"
 
 extern const struct generic_mapping file_generic_mapping;

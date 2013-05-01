@@ -20,7 +20,7 @@
 */
 
 #include "includes.h"
-#include "talloc.h"
+#include "talloc_debug.h"
 #include "rpc_server/dcerpc_server.h"
 #include "dsdb/samdb/samdb.h"
 #include "lib/util/dlinklist.h"

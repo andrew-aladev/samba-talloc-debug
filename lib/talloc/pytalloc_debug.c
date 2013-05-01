@@ -18,8 +18,8 @@
 */
 
 #include <Python.h>
-#include <talloc.h>
-#include <pytalloc.h>
+#include <talloc_debug.h>
+#include <pytalloc_debug.h>
 
 void inittalloc(void);
 

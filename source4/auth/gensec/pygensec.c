@@ -23,7 +23,7 @@
 #include "auth/credentials/pycredentials.h"
 #include "libcli/util/pyerrors.h"
 #include "python/modules.h"
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 #include <tevent.h>
 #include "librpc/rpc/pyrpc_util.h"
 

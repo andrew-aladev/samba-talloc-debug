@@ -33,7 +33,7 @@
 #include "param/pyparam.h"
 #include "librpc/rpc/dcerpc.h"
 #include "librpc/gen_ndr/server_id.h"
-#include <pytalloc.h>
+#include <pytalloc_debug.h>
 
 void initmessaging(void);
 
