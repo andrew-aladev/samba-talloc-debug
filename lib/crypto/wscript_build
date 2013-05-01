@@ -11,7 +11,7 @@ bld.SAMBA_SUBSYSTEM('LIBCRYPTO',
         source='''crc32.c hmacmd5.c md4.c arcfour.c sha256.c hmacsha256.c
         aes.c rijndael-alg-fst.c aes_cmac_128.c aes_ccm_128.c
         ''' + extra_source,
-        deps='talloc' + extra_deps
+        deps='talloc-debug' + extra_deps
         )
 
 bld.SAMBA_SUBSYSTEM('TORTURE_LIBCRYPTO',

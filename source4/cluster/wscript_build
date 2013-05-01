@@ -2,7 +2,7 @@
 
 bld.SAMBA_LIBRARY('cluster',
                   source='cluster.c local.c',
-                  deps='dbwrap samba-hostconfig talloc',
+                  deps='dbwrap samba-hostconfig talloc-debug',
                   private_library=True
                   )
 

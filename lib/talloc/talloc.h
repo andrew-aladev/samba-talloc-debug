@@ -1594,7 +1594,7 @@ char *talloc_asprintf_append_buffer(char *s, const char *fmt, ...) PRINTF_ATTRIB
 /* @} ******************************************************************/
 
 /**
- * @defgroup talloc_debug The talloc debugging support functions
+ * @defgroup talloc-debug The talloc debugging support functions
  * @ingroup talloc
  *
  * To aid memory debugging, talloc contains routines to inspect the currently

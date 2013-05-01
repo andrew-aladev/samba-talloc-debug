@@ -17,13 +17,13 @@ bld.SAMBA_MODULE('socket_ip',
 bld.SAMBA_MODULE('socket_unix',
     source='socket_unix.c',
     subsystem='samba_socket',
-    deps='talloc',
+    deps='talloc-debug',
     internal_module=True
     )
 
 bld.SAMBA_SUBSYSTEM('samba_socket',
     source='socket.c access.c connect_multi.c connect.c',
-    public_deps='talloc LIBTSOCKET',
+    public_deps='talloc-debug LIBTSOCKET',
     deps='cli_composite LIBCLI_RESOLVE socket_ip socket_unix'
     )
 

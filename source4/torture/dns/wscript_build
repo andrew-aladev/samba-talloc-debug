@@ -6,7 +6,7 @@ if bld.AD_DC_BUILD_IS_ENABLED():
 		subsystem='smbtorture',
 		init_function='torture_bind_dns_init',
 		cflags='-DBIND_VERSION_9_8',
-		deps='torture talloc torturemain dlz_bind9_for_torture',
+		deps='torture talloc-debug torturemain dlz_bind9_for_torture',
 		internal_module=True
 		)
 
@@ -14,6 +14,6 @@ if bld.AD_DC_BUILD_IS_ENABLED():
 		source='internal_dns.c',
 		subsystem='smbtorture',
 		init_function='torture_internal_dns_init',
-		deps='torture talloc torturemain',
+		deps='torture talloc-debug torturemain',
 		internal_module=True
 		)

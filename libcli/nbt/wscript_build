@@ -2,13 +2,13 @@
 
 bld.SAMBA_SUBSYSTEM('NDR_NBT_BUF',
 	source='nbtname.c',
-	deps='talloc',
+	deps='talloc-debug',
 	autoproto='nbtname.h'
 	)
 
 bld.SAMBA_SUBSYSTEM('lmhosts',
                     source='lmhosts.c',
-                    deps='replace talloc'
+                    deps='replace talloc-debug'
                     )
 
 bld.SAMBA_LIBRARY('cli-nbt',

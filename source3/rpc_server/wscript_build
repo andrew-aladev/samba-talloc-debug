@@ -27,7 +27,7 @@ bld.SAMBA3_SUBSYSTEM('rpc',
 
 bld.SAMBA3_SUBSYSTEM('RPC_CONFIG',
                     source='rpc_config.c',
-		    deps='talloc')
+		    deps='talloc-debug')
 
 bld.SAMBA3_SUBSYSTEM('RPC_NCACN_NP',
                     source='rpc_ncacn_np.c rpc_handles.c rpc_contexts.c',

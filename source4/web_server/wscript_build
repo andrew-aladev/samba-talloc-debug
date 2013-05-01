@@ -4,7 +4,7 @@
 bld.SAMBA_SUBSYSTEM('WEB_WSGI',
 		source='wsgi.c',
 		pyext=True,
-		deps='talloc LIBTSOCKET',
+		deps='talloc-debug LIBTSOCKET',
 		enabled=bld.AD_DC_BUILD_IS_ENABLED()
 		)
 

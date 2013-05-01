@@ -97,7 +97,7 @@ bld.SAMBA_SUBSYSTEM('NDR_SPOOLSS',
 
 bld.SAMBA_SUBSYSTEM('NDR_SPOOLSS_BUF',
     source='ndr/ndr_spoolss_buf.c',
-    deps='talloc'
+    deps='talloc-debug'
     )
 
 bld.SAMBA_SUBSYSTEM('NDR_PRINTCAP',
@@ -634,7 +634,7 @@ bld.SAMBA_LIBRARY('dcerpc-samba',
 bld.SAMBA_LIBRARY('ndr',
     source='ndr/ndr_string.c ndr/ndr_basic.c ndr/uuid.c ndr/ndr.c ndr/ndr_misc.c gen_ndr/ndr_misc.c ndr/util.c',
     pc_files='ndr.pc',
-    public_deps='errors talloc samba-util',
+    public_deps='errors talloc-debug samba-util',
     public_headers='gen_ndr/misc.h gen_ndr/ndr_misc.h ndr/libndr.h:ndr.h',
     header_path= [('*gen_ndr*', 'gen_ndr')],
     vnum='0.0.1',

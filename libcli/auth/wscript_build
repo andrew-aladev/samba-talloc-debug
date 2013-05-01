@@ -8,12 +8,12 @@ bld.SAMBA_LIBRARY('cliauth',
 
 bld.SAMBA_SUBSYSTEM('MSRPC_PARSE',
 	source='msrpc_parse.c',
-	deps='talloc'
+	deps='talloc-debug'
 	)
 
 bld.SAMBA_SUBSYSTEM('NTLM_CHECK',
                     source='ntlm_check.c',
-                    deps = 'talloc'
+                    deps = 'talloc-debug'
                     )
 
 bld.SAMBA_SUBSYSTEM('LIBCLI_AUTH',
@@ -31,7 +31,7 @@ bld.SAMBA_SUBSYSTEM('COMMON_SCHANNEL',
 
 bld.SAMBA_SUBSYSTEM('PAM_ERRORS',
 	source='pam_errors.c',
-	deps='talloc'
+	deps='talloc-debug'
 	)
 
 bld.SAMBA_SUBSYSTEM('SPNEGO_PARSE',

@@ -81,7 +81,7 @@ elif (host_os.rfind('aix') > -1):
 if bld.CONFIG_SET('WITH_PAM_MODULES') and bld.CONFIG_SET('HAVE_PAM_START'):
 	bld.SAMBA_LIBRARY('pamwinbind',
 		source='pam_winbind.c',
-		deps='intl talloc wbclient winbind-client iniparser pam',
+		deps='intl talloc-debug wbclient winbind-client iniparser pam',
 		cflags='-DLOCALEDIR=\"%s/locale\"' % bld.env.DATADIR,
 		realname='pam_winbind.so',
 		install_path='${PAMMODULESDIR}'
@@ -95,7 +95,7 @@ if bld.CONFIG_SET('HAVE_KRB5_LOCATE_PLUGIN_H'):
 
 bld.SAMBA_SUBSYSTEM('WB_REQTRANS',
 	source='wb_reqtrans.c',
-	deps='talloc tevent LIBASYNC_REQ'
+	deps='talloc-debug tevent LIBASYNC_REQ'
 	)
 
 bld.SAMBA_BINARY('wbinfo',

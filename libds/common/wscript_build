@@ -1,6 +1,6 @@
 
 bld.SAMBA_LIBRARY('flag_mapping',
-                  public_deps='talloc replace',
+                  public_deps='talloc-debug replace',
                   source='flag_mapping.c',
 		  private_library=True,
                   public_headers='roles.h',

@@ -2,6 +2,6 @@
 
 bld.SAMBA_LIBRARY('dfs_server_ad',
                   source='dfs_server_ad.c',
-                  deps='talloc samdb samba-util LIBTSOCKET',
+                  deps='talloc-debug samdb samba-util LIBTSOCKET',
                   private_library=True
                   )

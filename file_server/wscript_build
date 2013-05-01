@@ -5,6 +5,6 @@ bld.SAMBA_MODULE('service_s3fs',
                  autoproto='file_server_proto.h',
                  subsystem='service',
                  init_function='server_service_s3fs_init',
-                 deps='samba-hostconfig service talloc UTIL_RUNCMD',
+                 deps='samba-hostconfig service talloc-debug UTIL_RUNCMD',
                  internal_module=False
                  )

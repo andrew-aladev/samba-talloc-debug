@@ -11,7 +11,7 @@ bld.SAMBA_MODULE('sys_notify_inotify',
 
 bld.SAMBA_SUBSYSTEM('sys_notify',
                     source='sys_notify.c',
-                    deps='talloc tevent'
+                    deps='talloc-debug tevent'
                     )
 
 
@@ -26,6 +26,6 @@ bld.SAMBA_MODULE('sys_lease_linux',
 
 bld.SAMBA_SUBSYSTEM('sys_lease',
                     source='sys_lease.c',
-                    deps='talloc'
+                    deps='talloc-debug'
                     )
 

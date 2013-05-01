@@ -36,7 +36,7 @@ recursively frees all of its descendants as well.
 
 @subpage libtalloc_pools
 
-@subpage libtalloc_debugging
+@subpage libtalloc-debugging
 
 @subpage libtalloc_bestpractices
 

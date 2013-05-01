@@ -7,7 +7,7 @@ def build(bld):
             read_smb.c
         ''',
         deps='errors LIBASYNC_REQ',
-        public_deps='talloc tevent samba-util',
+        public_deps='talloc-debug tevent samba-util',
         private_library=True,
         public_headers='''
             read_smb.h
@@ -36,7 +36,7 @@ def build(bld):
 		smb2cli_echo.c
 	''',
 	deps='LIBCRYPTO errors gensec krb5samba smb_transport',
-	public_deps='talloc samba-util',
+	public_deps='talloc-debug samba-util',
 	private_library=True,
 	public_headers='''
 		smb_common.h smb2_constants.h smb_constants.h
